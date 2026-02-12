@@ -71,8 +71,18 @@ let messageIndex = 0;
 function handleNoClick() {
     const noButton = document.querySelector('.no-button');
     const yesButton = document.querySelector('.yes-button');
-    noButton.textContent = messages[messageIndex];
-    messageIndex = (messageIndex + 1) % messages.length;
+
+    if (messageIndex < messages.length) {
+        noButton.textContent = messages[messageIndex];
+        messageIndex++;
+    }
+
+    if (messageIndex === messages.length) { // Check if it's the last message
+        setTimeout(() => {
+            noButton.style.display = 'none'; // Hide the no button after a delay
+        }, 2000); // Delay to allow the last message to be visible
+    }
+
     const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
     yesButton.style.fontSize = `${currentSize * 1.5}px`;
 }
